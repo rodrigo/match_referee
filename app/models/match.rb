@@ -10,6 +10,10 @@ class Match < ApplicationRecord
     )
   end
 
+  def kills_per_weapon
+    kills.map { |kill| kill.weapon }.inject(Hash.new(0)) {|h,i| h[i] += 1; h }
+  end
+
   private
 
   def total_score

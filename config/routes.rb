@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   get 'matches' => 'matches#index'
   get 'matches/:id' => 'matches#show'
+  get 'matches/:id/kills_per_weapon' => 'matches#kills_per_weapon'
 
   require 'sidekiq/web'
 
