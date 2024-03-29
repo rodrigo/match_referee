@@ -1,11 +1,10 @@
 class CreateKills < ActiveRecord::Migration[7.1]
   def change
     create_table :kills do |t|
-      t.string :author
-      t.string :victim
+      t.integer :author_game_id
+      t.integer :victim_game_id
       t.string :weapon
       t.integer :match_id
-      t.time :time
 
       t.timestamps
     end

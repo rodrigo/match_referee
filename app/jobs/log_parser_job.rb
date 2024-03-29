@@ -27,11 +27,19 @@ class LogParserJob
         @match = Match.create
       end
 
+      if line.include?('ClientUserinfoChanged')
+        name = line.split('\\')[1]
+        game_id = line.split(' ')[2].to_i
+        MatchPlayer.find_or_initialize_by(game_id: game_id, match_id: @match.id).update(name: name)
+      end
+
       next if line.split(' ')[1] != 'Kill:'
-      killer = line.split(':')[3][/(.*?)#{Regexp.escape('killed')}/m, 1].strip
-      victim = line[/#{Regexp.escape('killed')}(.*?)#{Regexp.escape('by')}/m, 1].strip
+
+      killer = line.split(' ')[2].to_i
+      victim = line.split(' ')[3].to_i
       weapon = line.split('by')[1].strip
-      kills  << {author: killer, victim: victim, weapon: weapon, match_id: @match.id}
+
+      kills  << {author_game_id: killer, victim_game_id: victim, weapon: weapon, match_id: @match.id}
     end
 
     Kill.insert_all(kills)
