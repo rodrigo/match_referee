@@ -1,24 +1,28 @@
-class LogParser < ApplicationJob
+class LogParserJob
+  include Sidekiq::Job
+
   queue_as :default
 
-  PATH=Rails.root + 'log_files/'
-
   def perform
-    Dir.foreach(PATH) do |filename|
+    log_path = Rails.root + 'log_files/'
+
+    Dir.foreach(log_path) do |filename|
+      file_path = log_path + filename
       next if filename == '.' or filename == '..'
-      parse_log(PATH + filename)
-      # remove_file(filename)
+      parse_log(file_path)
+      remove_file(file_path)
     end
   end
 
   private
 
-  def remove_file(filename)
+  def remove_file(file_path)
+    File.delete(file_path)
   end
 
-  def parse_log(filename)
+  def parse_log(file_path)
     kills = []
-    File.foreach(filename) do |line|
+    File.foreach(file_path) do |line|
       if line.include?('InitGame')
         @match = Match.create
       end
