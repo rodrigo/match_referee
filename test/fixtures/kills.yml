@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  author: MyString
+  victim: MyString
+  weapon: MyString
+  match_id: 1
+  time: 2024-03-28 22:19:46
+
+two:
+  author: MyString
+  victim: MyString
+  weapon: MyString
+  match_id: 1
+  time: 2024-03-28 22:19:46
