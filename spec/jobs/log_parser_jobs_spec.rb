@@ -4,7 +4,7 @@ require 'sidekiq/testing'
 RSpec.describe LogParserJob, type: :job do
   Sidekiq::Testing.inline!
 
-  let!(:log_path) { Rails.root  + 'spec/fixtures'}
+  let!(:log_path) { Rails.root  + 'spec/fixtures' }
 
   # The logs contains 209 kills and 5 matches
   context 'perform_async' do
