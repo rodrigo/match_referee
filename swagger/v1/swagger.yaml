@@ -1,0 +1,92 @@
+---
+openapi: 3.0.1
+info:
+  title: API V1
+  version: v1
+paths:
+  "/matches":
+    get:
+      summary: Get a list of matchs
+      tags:
+      - Matches
+      responses:
+        '200':
+          description: matches found
+          content:
+            application/json:
+              examples:
+                example:
+                  value:
+                  - id: 299
+                    created_at: '2024-03-29T19:13:09.297Z'
+                    updated_at: '2024-03-29T19:13:09.297Z'
+                    total_kills: 20
+                    players:
+                    - Ismilinguido
+                    - Pernilongo
+                    kills:
+                      pernilongo: 10
+                      ismilinguido: 10
+  "/matches/{id}":
+    get:
+      summary: Retrieves a match
+      tags:
+      - Matches
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: match found
+          content:
+            application/json:
+              examples:
+                example:
+                  value:
+                    id: 299
+                    created_at: '2024-03-29T19:13:09.297Z'
+                    updated_at: '2024-03-29T19:13:09.297Z'
+                    total_kills: 20
+                    players:
+                    - Ismilinguido
+                    - Pernilongo
+                    kills:
+                      pernilongo: 10
+                      ismilinguido: 10
+        '404':
+          description: match not found
+  "/matches/{id}/kills_per_weapon":
+    get:
+      summary: Retrieves a list of kills per weapon from a match
+      tags:
+      - Matches
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: match found
+          content:
+            application/json:
+              examples:
+                example:
+                  value:
+                    Raquete Elétrica: 5
+                    Picada: 1
+        '404':
+          description: match not found
+servers:
+- url: ''
+  variables:
+    defaultHost:
+      default: localhost
+components:
+  examples:
+    match:
+      xablau: xabu
