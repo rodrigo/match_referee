@@ -7,7 +7,7 @@ class Match < ApplicationRecord
       total_kills: kills.count,
       players: match_players.map(&:name),
       kills: total_score
-    )
+    ).symbolize_keys
   end
 
   def kills_per_weapon
