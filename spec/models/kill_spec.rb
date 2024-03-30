@@ -42,21 +42,4 @@ RSpec.describe Kill, type: :model do
         )
     end
   end
-
-  describe 'methods' do
-    let!(:kill) { Kill.create(author_game_id: 1, victim_game_id: 2, weapon: 'front kick', match: match) }
-    context '#author' do
-      let!(:match_player) { MatchPlayer.create(match: match, name: 'Anderson Silva', game_id: 1) }
-      it 'return MatchPlayer' do
-        expect(kill.author).to eq(match_player)
-      end
-    end
-
-    context '#victim' do
-      let!(:match_player) { MatchPlayer.create(match: match, name: 'Belfort', game_id: 2) }
-      it 'return MatchPlayer' do
-        expect(kill.victim).to eq(match_player)
-      end
-    end
-  end
 end

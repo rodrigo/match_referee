@@ -17,8 +17,8 @@ class Match < ApplicationRecord
   private
 
   def total_score
-    score = kills.map { |k| k.author.name if k.author }.inject(Hash.new(0)) {|h,i| h[i] += 1; h }
-    kills.where(author_game_id: 1022).map {|k| score[k.victim.name] -= 1 }
-    score.except(nil)
+    kills.map {|k| {author: k.author_game_id, victim: k.victim_game_id }}
+    .inject(Hash.new(0)) { |h,i| i[:author] == 1022 ? h[i[:victim]] -= 1 : h[i[:author]] += 1; h }
+    .inject(Hash.new(0)) { |h,s| h[MatchPlayer.find_by(game_id: s[0]).name] = s[1]; h }
   end
 end
