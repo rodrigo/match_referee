@@ -1,22 +1,22 @@
 # Match Referee
 
-Match Referee is a rails project that uses sidekiq to process Quake logs and distribute then through API.
+Match Referee is a rails project that uses sidekiq to process Quake logs and distribute them through API.
 
 # Getting started
 ## Requirements
 [docker compose](https://docs.docker.com/compose/install/)
 
 ## Installing
-Run the follow command on the application folder:
+Run the following command in the application folder:
 `docker compose build`
 
 ## Testing
-You can ran the rspec tests with the following command:
+You can run the rspec tests with the following command:
 `docker compose run web bundle exec rspec`
 
 # Utilization
 ## Consuming logs
-The log files are stored on the [/log_files](/log_files) folder. Once the application is up, Sidekiq will schedule a `LogParserJob` for the next minute. This job iterate through all log files existing, persisting the relevant logs on database and excluding the files after that.
+The log files are stored in the [/log_files](/log_files) folder. Once the application is up, Sidekiq will schedule a `LogParserJob` for the next minute. This job iterates through all log files existing, persisting the relevant logs in the database and excluding the files after that.
 You can check if the job ran by looking for a similar message on your terminal:
 ![Screenshot from 2024-03-30 13-47-56](https://github.com/rodrigo/match_referee/assets/20539146/e2af7896-6e6f-4602-bf9e-f11b2092ca54)
 Or you can check on the `/sidekiq` endopoint, the the "processed" jobs if there is already one job processed:
